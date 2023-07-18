@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="log-path">
+            logs
+        </Property>
+        <Property name="backup-log-path">
+            logs/backup
+        </Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="Trinn-user-error"
+                     fileName="${log-path}/Trinn-user-error.log"
+                     filePattern="${backup-log-path}/%d{yyyy-MM-dd}/Trinn-user-error-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{10} [%L] - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="nomax" />
+        </RollingFile>
+        <RollingFile name="Trinn-user-debug"
+                     fileName="${log-path}/Trinn-user-debug.log"
+                     filePattern="${backup-log-path}/%d{yyyy-MM-dd}/Trinn-user-debug-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{10} [%L] - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="nomax" />
+        </RollingFile>
+        <RollingFile name="Trinn-user-info"
+                     fileName="${log-path}/Trinn-user-info.log"
+                     filePattern="${backup-log-path}/%d{yyyy-MM-dd}/Trinn-user-info-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{10} [%L] - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="nomax" />
+        </RollingFile>
+        <RollingFile name="Trinn-user-trace"
+                     fileName="${log-path}/Trinn-user-trace.log"
+                     filePattern="${backup-log-path}/%d{yyyy-MM-dd}/Trinn-user-trace-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{10} [%L] - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="nomax" />
+        </RollingFile>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1} -%M %c{10} - %msg%n}{FATAL=red, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=white bold, TRACE=cyan}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.zaxxer.hikari" level="error"/>
+        <Logger name="io.grpc.netty.shaded.io.grpc" level="error"/>
+        <Logger name="org.jooq" level="error"/>
+        <Root level="All">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Trinn-user-error" level="error"/>
+            <AppenderRef ref="Trinn-user-info" level="info"/>
+            <AppenderRef ref="Trinn-user-debug" level="debug"/>
+            <AppenderRef ref="Trinn-user-trace" level="trace"/>
+        </Root>
+        <Logger name="org.mongodb" level="error"/>
+    </Loggers>
+
+</Configuration>
